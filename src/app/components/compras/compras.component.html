@@ -1,0 +1,46 @@
+<div class="container-fluid d-flex justify-content-center">
+    <div class="w-50 p-3 mr-3 ml-3" style="width: inherit;">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item border-0 border-bottom">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="btn btn-outline-success h-100 text-center w-100 fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Nueva Compra <i class="bi bi-cash-coin"></i>
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body text-center">
+                        <form action="" class="border p-3 mb-3">
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="col-md-6">
+                                    <label for="comprador" class="form-label">Comprador: </label>
+                                    <select class="form-select" aria-label="Default select example" name="comprador" id="comprador">
+                                      <option selected></option>
+                                      <option value="1">One</option>
+                                      <option value="2">Two</option>
+                                      <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="proveedor-producto" class="form-label">Proveedor: </label>
+                                    <select class="form-select" aria-label="Default select example" name="proveedorProducto" id="proveedor-producto">
+                                      <option selected></option>
+                                      <option value="1">One</option>
+                                      <option value="2">Two</option>
+                                      <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="col-md-6">
+                                    <label for="fecha-compra" class="form-label">Fecha de Compra: </label>
+                                    <input type="date" min="0" name="fechaCompra" class="form-control" id="fecha-compra">
+                                </div>
+                            </div>
+                            <button class="btn btn-success" type="submit">Generar Compra</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
