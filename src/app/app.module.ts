@@ -9,6 +9,9 @@ import { ProveedoresComponent } from './components/proveedores/proveedores.compo
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { ComprasComponent } from './components/compras/compras.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EmpleadosService } from './services/empleados.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,9 +25,11 @@ import { ComprasComponent } from './components/compras/compras.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [EmpleadosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

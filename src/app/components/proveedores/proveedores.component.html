@@ -9,25 +9,31 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body text-center">
-                        <form action="" class="border p-3 mb-3">
+                        <form [formGroup]="formProveedores" (ngSubmit)="guardarProveedor()" class="border p-3 mb-3">
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="col-md-6">
+                                    <label for="id-proveedor" class="form-label">ID: </label>
+                                    <input type="text" name="idProveedor" class="form-control" id="id-proveedor" formControlName="id">
+                                </div>
+                            </div>
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="col-md-6">
                                     <label for="contacto-proveedor" class="form-label">Contacto: </label>
-                                    <input type="text" name="contactoProveedor" class="form-control" id="contacto-proveedor">
+                                    <input type="text" name="contactoProveedor" class="form-control" id="contacto-proveedor" formControlName="contacto">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="direccion" class="form-label">Dirección: </label>
-                                    <input type="text" name="direccion" class="form-control" id="direccion">
+                                    <input type="text" name="direccion" class="form-control" id="direccion" formControlName="direccion">
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="col-md-6">
                                     <label for="denominacion" class="form-label">Denominacion: </label>
-                                    <input type="text" name="denominacion" class="form-control" id="denominacion">
+                                    <input type="text" name="denominacion" class="form-control" id="denominacion" formControlName="denominacion">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="telefono" class="form-label">Telefono: </label>
-                                    <input type="text" name="telefono" class="form-control" id="telefono">
+                                    <input type="text" name="telefono" class="form-control" id="telefono" formControlName="telefono">
                                 </div>
                             </div>
                             <button class="btn btn-success" type="submit">Registrar Proveedor</button>
@@ -49,12 +55,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                <tr *ngFor="let proveedor of proveedores">
+                    <th scope="row">{{proveedor.id_proveedor}}</th>
+                    <td>{{proveedor.contacto}}</td>
+                    <td>{{proveedor.direccion}}</td>
+                    <td>{{proveedor.denominacion}}</td>
+                    <td>{{proveedor.telefono}}</td>
                 </tr>
             </tbody>
         </table>

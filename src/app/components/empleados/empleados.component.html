@@ -9,35 +9,41 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body text-center">
-                        <form action="" class="border p-3 mb-3">
+                        <form [formGroup]="formEmpleados" (ngSubmit)="guardarEmpleado()" class="border p-3 mb-3">
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="col-md-6">
+                                    <label for="id-empleado" class="form-label">ID: </label>
+                                    <input type="text" name="idEmpleado" class="form-control" id="id-empleado" formControlName="id">
+                                </div>
+                            </div>
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="col-md-6">
                                     <label for="nombre-empleado" class="form-label">Nombre: </label>
-                                    <input type="text" name="nombreEmpleado" class="form-control" id="nombre-empleado">
+                                    <input type="text" name="nombreEmpleado" class="form-control" id="nombre-empleado" formControlName="nombre">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="rfc" class="form-label">RFC: </label>
-                                    <input type="text" name="rfc" class="form-control" id="rfc">
+                                    <input type="text" name="rfc" class="form-control" id="rfc" formControlName="rfcEmpleado">
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="col-md-6">
                                     <label for="sexo" class="form-label">Sexo (M/F): </label>
-                                    <input type="text" name="sexo" class="form-control" id="sexo">
+                                    <input type="text" name="sexo" class="form-control" id="sexo" formControlName="sexoEmpleado">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="direccion" class="form-label">Dirección: </label>
-                                    <input type="text" name="direccion" class="form-control" id="direccion">
+                                    <input type="text" name="direccion" class="form-control" id="direccion" formControlName="direccionEmpleado">
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="col-md-6">
                                     <label for="estatus" class="form-label">Estatus: </label>
-                                    <input type="text" name="estatus" class="form-control" id="estatus">
+                                    <input type="text" name="estatus" class="form-control" id="estatus" formControlName="estatusEmpleado">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="cargo" class="form-label">Cargo: </label>
-                                    <input type="text" name="cargo" class="form-control" id="cargo">
+                                    <input type="text" name="cargo" class="form-control" id="cargo" formControlName="cargoEmpleado">
                                 </div>
                             </div>
                             <button class="btn btn-success" type="submit">Registrar Empleado</button>
@@ -54,7 +60,6 @@
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">RFC</th>
-                    <th scope="col">Handle</th>
                     <th scope="col">Sexo</th>
                     <th scope="col">Dirección</th>
                     <th scope="col">Estatus</th>
@@ -62,15 +67,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                <tr *ngFor="let empleado of empleados">
+                    <th scope="row">{{empleado.id_empleado}}</th>
+                    <td>{{empleado.nombre}}</td>
+                    <td>{{empleado.rfc}}</td>
+                    <td>{{empleado.sexo}}</td>
+                    <td>{{empleado.direccion}}</td>
+                    <td>{{empleado.estatus}}</td>
+                    <td>{{empleado.cargo}}</td>
                 </tr>
             </tbody>
         </table>

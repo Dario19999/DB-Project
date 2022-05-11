@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ProveedoresService } from 'src/app/services/proveedores.service';
+import { ProductosService } from '../../services/productos.service';
 
 @Component({
   selector: 'app-inventario',
@@ -7,9 +10,60 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventarioComponent implements OnInit {
 
-  constructor() { }
+  formProductos: FormGroup;
+
+  productos:any = null;
+  proveedores:any = null;
+
+  constructor(private fb: FormBuilder,
+              private productosService: ProductosService,
+              private proveedoresService: ProveedoresService) { }
 
   ngOnInit(): void {
+    this.formInit();
+    this.getProductos();
+    console.log(this.productos);
+    this.getProveedores();
+  }
+
+  formInit(){
+    this.formProductos = this.fb.group({
+      id:[''],
+      nombre:[''],
+      desc:[''],
+      precio:[''],
+      precioVenta:[''],
+      stock:[''],
+      proveedor:['']
+    })
+  }
+
+  getProductos(){
+    this.productosService.getProductos().subscribe(resultado => {
+      this.productos = resultado
+      for (const [i, producto] of this.productos.entries()){
+        this.proveedoresService.getProveedor(producto.id_proveedor).subscribe((res:any) => {
+          this.productos[i]['nombre_proveedor'] = res[0].denominacion
+        });
+      }
+      console.log(this.productos);
+    });
+  }
+
+  getProveedores(){
+    this.proveedoresService.getProveedores().subscribe(resultado => {
+      this.proveedores = resultado
+      console.log(this.proveedores);
+    });
+  }
+
+  guardarProducto(){
+    this.productosService.setProducto(this.formProductos.value).subscribe((datos:any) =>{
+      if (datos['resultado'] == 'OK') {
+        this.getProductos();
+        this.formProductos.reset();
+      }
+    });
   }
 
 }
