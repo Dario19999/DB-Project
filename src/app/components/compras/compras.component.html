@@ -9,31 +9,57 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body text-center">
-                        <form action="" class="border p-3 mb-3">
+                        <form [formGroup]="formCompras" (ngSubmit)="guardarCompra()" class="border p-3 mb-3">
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="col-md-6">
+                                    <label for="id-compra" class="form-label">ID de Compra: </label>
+                                    <input type="text" min="0" name="idcompra" class="form-control" id="id-compra" formControlName="id">
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="col-md-6">
+                                    <label for="producto" class="form-label">Producto: </label>
+                                    <select class="form-select" aria-label="Default select example" name="producto" id="producto" formControlName="producto">
+                                      <ng-container *ngFor="let producto of productos">
+                                        <option value="{{producto.id_producto}}">{{producto.nombre}}</option>
+                                      </ng-container>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cantidad-compra" class="form-label">Cantidad: </label>
+                                    <input type="number" min="0" name="cantidadCompra" class="form-control" id="cantidad-compra" formControlName="cantidad">
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="col-md-6">
+                                    <label for="total-compra" class="form-label">Total: </label>
+                                    <input type="number" min="0" name="totalCompra" class="form-control" id="total-compra" formControlName="total">
+                                </div>
+                            </div>
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="col-md-6">
                                     <label for="comprador" class="form-label">Comprador: </label>
-                                    <select class="form-select" aria-label="Default select example" name="comprador" id="comprador">
+                                    <select class="form-select" aria-label="Default select example" name="comprador" id="comprador" formControlName="comprador">
                                       <option selected></option>
-                                      <option value="1">One</option>
-                                      <option value="2">Two</option>
-                                      <option value="3">Three</option>
+                                      <ng-container *ngFor="let empleado of empleados">
+                                        <option value="{{empleado.id_empleado}}">{{empleado.id_empleado}}</option>
+                                      </ng-container>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="proveedor-producto" class="form-label">Proveedor: </label>
-                                    <select class="form-select" aria-label="Default select example" name="proveedorProducto" id="proveedor-producto">
+                                    <select class="form-select" aria-label="Default select example" name="proveedorProducto" id="proveedor-producto" formControlName="proveedor">
                                       <option selected></option>
-                                      <option value="1">One</option>
-                                      <option value="2">Two</option>
-                                      <option value="3">Three</option>
+                                      <ng-container *ngFor="let proveedor of proveedores">
+                                        <option value="{{proveedor.id_proveedor}}">{{proveedor.denominacion}}</option>
+                                      </ng-container>
                                     </select>
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="col-md-6">
                                     <label for="fecha-compra" class="form-label">Fecha de Compra: </label>
-                                    <input type="date" min="0" name="fechaCompra" class="form-control" id="fecha-compra">
+                                    <input type="date" min="0" name="fechaCompra" class="form-control" id="fecha-compra" formControlName="fecha">
                                 </div>
                             </div>
                             <button class="btn btn-success" type="submit">Generar Compra</button>
@@ -57,14 +83,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                <tr *ngFor="let compra of compras">
+                    <th scope="row">{{compra.id_compra}}</th>
+                    <td>{{compra.comprador}}</td>
+                    <td>{{compra.proveedor}}</td>
+                    <td>{{compra.producto}}</td>
+                    <td>{{compra.cantidad}}</td>
+                    <td>{{compra.total_compra}}</td>
+                    <td>{{compra.fecha_compra}}</td>
                 </tr>
             </tbody>
         </table>
