@@ -52,6 +52,7 @@
                     <th scope="col">Dirección</th>
                     <th scope="col">Denominación</th>
                     <th scope="col">Teléfono</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -61,6 +62,10 @@
                     <td>{{proveedor.direccion}}</td>
                     <td>{{proveedor.denominacion}}</td>
                     <td>{{proveedor.telefono}}</td>
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#editModal" class="p-0 m-0 nav-link" style="cursor: pointer;" (click)="editarProveedor( proveedor.id_proveedor )">Editar</a>
+                        <a class=" p-0 m-0 nav-link" style="cursor: pointer;" (click)="eliminarProveedor( proveedor.id_proveedor )">Eliminar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>

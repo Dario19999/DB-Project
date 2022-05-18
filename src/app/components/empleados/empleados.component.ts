@@ -10,8 +10,11 @@ import { EmpleadosService } from '../../services/empleados.service';
 export class EmpleadosComponent implements OnInit {
 
   formEmpleados: FormGroup;
+  formEditEmpleados: FormGroup;
 
   empleados:any = null;
+  empleado:any = null;
+  form:any = null;
 
   constructor(private fb: FormBuilder,
               private empleadosService: EmpleadosService) { }
@@ -30,7 +33,16 @@ export class EmpleadosComponent implements OnInit {
       sexoEmpleado:[''],
       estatusEmpleado:[''],
       cargoEmpleado:['']
-    })
+    });
+    this.formEditEmpleados = this.fb.group({
+      id:[''],
+      nombre:[''],
+      rfcEmpleado:[''],
+      direccionEmpleado:[''],
+      sexoEmpleado:[''],
+      estatusEmpleado:[''],
+      cargoEmpleado:['']
+    });
   }
 
   getEmpleados(){
@@ -40,14 +52,65 @@ export class EmpleadosComponent implements OnInit {
     });
   }
 
-  guardarEmpleado(){
-    // console.log(this.formEmpleados.value);
-    this.empleadosService.setEmpleado(this.formEmpleados.value).subscribe((datos:any) =>{
+  getEmpleado(id:any){
+    this.empleadosService.getEmpleado(id).subscribe(resultado => {
+      this.empleado = resultado
+      console.log(this.empleado);
+      this.formEditEmpleados.setValue({
+        id:this.empleado[0].id_empleado,
+        nombre:this.empleado[0].nombre,
+        rfcEmpleado:this.empleado[0].rfc,
+        direccionEmpleado:this.empleado[0].direccion,
+        sexoEmpleado:this.empleado[0].sexo,
+        estatusEmpleado:this.empleado[0].estatus,
+        cargoEmpleado:this.empleado[0].cargo
+      });
+    });
+  }
+
+  guardarEmpleado(edit:boolean = false){
+
+    if(!edit){
+      this.form = this.formEmpleados.value
+    }
+    else{
+      this.form = this.formEditEmpleados.value
+    }
+    this.empleadosService.setEmpleado(this.form).subscribe((datos:any) =>{
       if (datos['resultado'] == 'OK') {
         this.getEmpleados();
         this.formEmpleados.reset();
+        return;
+      }
+      if(datos['estatus'] == '1'){
+        alert("Ya existe un empleado con este ID");
       }
     });
   }
+
+  editarEmpleado(id:number){
+    this.getEmpleado(id);
+  }
+
+  eliminarEmpleado(id:number){
+    console.log(id);
+    if (confirm("¿Desea eliminar este registro?")){
+      this.empleadosService.deleteEmpleado(id).subscribe((datos:any) => {
+        console.log(datos);
+        if (datos['resultado'] == 'OK') {
+          this.getEmpleados();
+          return;
+        }
+        else{
+          if(datos['error'] == '23503'){
+            console.log('a');
+            alert("No puede eliminar al empleado debido a que este registró una venta o una compra");
+          }
+        }
+      });
+    }
+  }
+
+
 
 }

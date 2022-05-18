@@ -23,4 +23,8 @@ export class ProveedoresService {
   getProveedor(id:number){
     return this.http.get(`${this.url}getProveedor.php?id_proveedor=${id}`)
   }
+
+  deleteProveedor(id:number){
+    return this.http.get(`${this.url}deleteProveedor.php?id=${id}`);
+  }
 }

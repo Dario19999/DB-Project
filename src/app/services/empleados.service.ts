@@ -19,4 +19,12 @@ export class EmpleadosService {
   getEmpleados(){
     return this.http.get(`${this.url}getEmpleados.php`)
   }
+
+  getEmpleado(id:number){
+    return this.http.get(`${this.url}getEmpleado.php?id=${id}`)
+  }
+
+  deleteEmpleado(id:number){
+    return this.http.get(`${this.url}deleteEmpleado.php?id=${id}`);
+  }
 }

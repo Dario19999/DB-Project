@@ -62,8 +62,35 @@ export class InventarioComponent implements OnInit {
       if (datos['resultado'] == 'OK') {
         this.getProductos();
         this.formProductos.reset();
+        return;
+      }
+      if(datos['estatus'] == '1'){
+        alert("Ya existe una compra con este ID");
       }
     });
+  }
+
+  eliminarProducto(id:number){
+    console.log(id);
+    if (confirm("¿Desea eliminar este registro?")){
+      this.productosService.deleteProducto(id).subscribe((datos:any) => {
+        console.log(datos);
+        if (datos['resultado'] == 'OK') {
+          this.getProductos();
+          return;
+        }
+        else{
+          if(datos['error'] == '23503'){
+            console.log('a');
+            alert("No puede eliminar el producto debido a que está registrado en una venta o compra");
+          }
+        }
+      });
+    }
+  }
+
+  editarProducto(id:number){
+
   }
 
 }

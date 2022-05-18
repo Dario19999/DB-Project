@@ -80,6 +80,7 @@
                     <th scope="col">Cantidad</th>
                     <th scope="col">Total</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -91,8 +92,79 @@
                     <td>{{compra.cantidad}}</td>
                     <td>{{compra.total_compra}}</td>
                     <td>{{compra.fecha_compra}}</td>
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#editModal" class="p-0 m-0 nav-link" style="cursor: pointer;" (click)="editarCompra( compra.id_compra )">Editar</a>
+                        <a class=" p-0 m-0 nav-link" style="cursor: pointer;" (click)="eliminarCompra( compra.id_compra )">Eliminar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editleModalLabel">Editar Compra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <form [formGroup]="formEditCompras" (ngSubmit)="guardarCompra()" class="p-3 mb-3">
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="id-compra" class="form-label">ID de Compra: </label>
+                            <input type="text" min="0" name="idcompra" class="form-control" id="id-compra" formControlName="new_id">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="producto" class="form-label">Producto: </label>
+                            <select class="form-select" aria-label="Default select example" name="producto" id="producto" formControlName="new_producto">
+                          <ng-container *ngFor="let producto of productos">
+                            <option value="{{producto.id_producto}}">{{producto.nombre}}</option>
+                          </ng-container>
+                        </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cantidad-compra" class="form-label">Cantidad: </label>
+                            <input type="number" min="0" name="cantidadCompra" class="form-control" id="cantidad-compra" formControlName="new_cantidad">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="total-compra" class="form-label">Total: </label>
+                            <input type="number" min="0" name="totalCompra" class="form-control" id="total-compra" formControlName="new_total">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="comprador" class="form-label">Comprador: </label>
+                            <select class="form-select" aria-label="Default select example" name="comprador" id="comprador" formControlName="new_comprador">
+                          <option selected></option>
+                          <ng-container *ngFor="let empleado of empleados">
+                            <option value="{{empleado.id_empleado}}">{{empleado.id_empleado}}</option>
+                          </ng-container>
+                        </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="proveedor-producto" class="form-label">Proveedor: </label>
+                            <select class="form-select" aria-label="Default select example" name="proveedorProducto" id="proveedor-producto" formControlName="new_proveedor">
+                          <option selected></option>
+                          <ng-container *ngFor="let proveedor of proveedores">
+                            <option value="{{proveedor.id_proveedor}}">{{proveedor.denominacion}}</option>
+                          </ng-container>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="fecha-compra" class="form-label">Fecha de Compra: </label>
+                            <input type="date" min="0" name="fechaCompra" class="form-control" id="fecha-compra" formControlName="new_fecha">
+                        </div>
+                    </div>
+                    <button class="btn btn-success" type="submit">Editar Compra</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

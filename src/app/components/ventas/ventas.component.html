@@ -62,6 +62,7 @@
                     <th scope="col">Cantidad</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Método de Pago</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -71,6 +72,10 @@
                     <td>{{venta.total_venta}}</td>
                     <td>{{venta.fecha_venta}}</td>
                     <td>{{venta.metodo_pago}}</td>
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#editModal" class="p-0 m-0 nav-link" style="cursor: pointer;" (click)="editarVenta( venta.id_venta )">Editar</a>
+                        <a class=" p-0 m-0 nav-link" style="cursor: pointer;" (click)="eliminarVenta( venta.id_venta )">Eliminar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -19,4 +19,9 @@ export class ProductosService {
   getProductos(){
     return this.http.get(`${this.url}getProductos.php`)
   }
+
+  deleteProducto(id:number){
+    return this.http.get(`${this.url}deleteProducto.php?id=${id}`);
+  }
+
 }

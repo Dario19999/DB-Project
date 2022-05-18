@@ -20,4 +20,12 @@ export class ComprasService {
     return this.http.get(`${this.url}getCompras.php`)
   }
 
+  getCompra(id:number){
+    return this.http.get(`${this.url}getCompra.php?id=${id}`);
+  }
+
+  deleteCompra(id:number){
+    return this.http.get(`${this.url}deleteCompra.php?id=${id}`);
+  }
+
 }

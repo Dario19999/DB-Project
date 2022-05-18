@@ -64,6 +64,7 @@
                     <th scope="col">Dirección</th>
                     <th scope="col">Estatus</th>
                     <th scope="col">Cargo</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -75,8 +76,63 @@
                     <td>{{empleado.direccion}}</td>
                     <td>{{empleado.estatus}}</td>
                     <td>{{empleado.cargo}}</td>
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#editModal" class="p-0 m-0 nav-link" style="cursor: pointer;" (click)="editarEmpleado( empleado.id_empleado )">Editar</a>
+                        <a class=" p-0 m-0 nav-link" style="cursor: pointer;" (click)="eliminarEmpleado( empleado.id_empleado )">Eliminar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editleModalLabel">Editar Compra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <form [formGroup]="formEditEmpleados" (ngSubmit)="guardarEmpleado(true)" class="border p-3 mb-3">
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="id-empleado" class="form-label">ID: </label>
+                            <input type="text" name="idEmpleado" class="form-control" id="id-empleado" formControlName="id">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="nombre-empleado" class="form-label">Nombre: </label>
+                            <input type="text" name="nombreEmpleado" class="form-control" id="nombre-empleado" formControlName="nombre">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="rfc" class="form-label">RFC: </label>
+                            <input type="text" name="rfc" class="form-control" id="rfc" formControlName="rfcEmpleado">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="sexo" class="form-label">Sexo (M/F): </label>
+                            <input type="text" name="sexo" class="form-control" id="sexo" formControlName="sexoEmpleado">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="direccion" class="form-label">Dirección: </label>
+                            <input type="text" name="direccion" class="form-control" id="direccion" formControlName="direccionEmpleado">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="estatus" class="form-label">Estatus: </label>
+                            <input type="text" name="estatus" class="form-control" id="estatus" formControlName="estatusEmpleado">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cargo" class="form-label">Cargo: </label>
+                            <input type="text" name="cargo" class="form-control" id="cargo" formControlName="cargoEmpleado">
+                        </div>
+                    </div>
+                    <button class="btn btn-success" type="submit">Registrar Empleado</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

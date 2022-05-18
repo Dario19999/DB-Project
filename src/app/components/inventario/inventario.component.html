@@ -71,6 +71,7 @@
                     <th scope="col">Stock</th>
                     <th scope="col">Proveedor</th>
                     <th scope="col">Estatus</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -83,6 +84,10 @@
                     <td>{{producto.cantidad}}</td>
                     <td>{{producto.nombre_proveedor}}</td>
                     <td>{{producto.estatus}}</td>
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#editModal" class="p-0 m-0 nav-link" style="cursor: pointer;" (click)="editarProducto( producto.id_producto )">Editar</a>
+                        <a class=" p-0 m-0 nav-link" style="cursor: pointer;" (click)="eliminarProducto( producto.id_producto )">Eliminar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -55,7 +55,28 @@ export class VentasComponent implements OnInit {
       if (datos['resultado'] == 'OK') {
         this.getVentas();
         this.formVentas.reset();
+        return;
+      }
+      if(datos['estatus'] == '1'){
+        alert("Ya existe una venta con este ID");
       }
     });
+  }
+
+  eliminarVenta(id:number){
+    console.log(id);
+    if (confirm("¿Desea eliminar este registro?")){
+      this.ventasService.deleteVenta(id).subscribe((datos:any) => {
+        if (datos['resultado'] == 'OK') {
+          this.getVentas();
+          return;
+        }
+        alert("Error al eliminar.")
+      });
+    }
+  }
+
+  editarVenta(id:number){
+
   }
 }

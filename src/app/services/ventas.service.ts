@@ -23,4 +23,8 @@ export class VentasService {
   // getVenta(id:number){
   //   return this.http.get(`${this.url}getProveedor.php?id_proveedor=${id}`)
   // }
+
+  deleteVenta(id:number){
+    return this.http.get(`${this.url}deleteVenta.php?id=${id}`);
+  }
 }
