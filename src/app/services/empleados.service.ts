@@ -27,4 +27,9 @@ export class EmpleadosService {
   deleteEmpleado(id:number){
     return this.http.get(`${this.url}deleteEmpleado.php?id=${id}`);
   }
+
+  updateEmpleado(empleado:any){
+    const EMPLEADO_FD = serialize(empleado);
+    return this.http.post(`${this.url}updateEmpleado.php`, EMPLEADO_FD)
+  }
 }

@@ -93,11 +93,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <form [formGroup]="formEditEmpleados" (ngSubmit)="guardarEmpleado(true)" class="border p-3 mb-3">
+                <form [formGroup]="formEditEmpleados" (ngSubmit)="guardarEdicion()" class="p-3 mb-3">
                     <div class="row d-flex justify-content-around mb-3">
                         <div class="col-md-6">
                             <label for="id-empleado" class="form-label">ID: </label>
-                            <input type="text" name="idEmpleado" class="form-control" id="id-empleado" formControlName="id">
+                            <input type="text" name="idEmpleado" class="form-control" id="id-empleado" formControlName="id" readonly>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-around mb-3">
@@ -130,7 +130,7 @@
                             <input type="text" name="cargo" class="form-control" id="cargo" formControlName="cargoEmpleado">
                         </div>
                     </div>
-                    <button class="btn btn-success" type="submit">Registrar Empleado</button>
+                    <button class="btn btn-success" type="submit" data-bs-dismiss="modal">Guardar Cambios</button>
                 </form>
             </div>
         </div>

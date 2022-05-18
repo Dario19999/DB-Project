@@ -48,7 +48,6 @@ export class EmpleadosComponent implements OnInit {
   getEmpleados(){
     this.empleadosService.getEmpleados().subscribe(resultado => {
       this.empleados = resultado
-      console.log(this.empleados);
     });
   }
 
@@ -68,18 +67,26 @@ export class EmpleadosComponent implements OnInit {
     });
   }
 
-  guardarEmpleado(edit:boolean = false){
-
-    if(!edit){
-      this.form = this.formEmpleados.value
-    }
-    else{
-      this.form = this.formEditEmpleados.value
-    }
-    this.empleadosService.setEmpleado(this.form).subscribe((datos:any) =>{
+  guardarEmpleado(){
+    this.empleadosService.setEmpleado(this.formEmpleados.value).subscribe((datos:any) =>{
       if (datos['resultado'] == 'OK') {
         this.getEmpleados();
         this.formEmpleados.reset();
+        return;
+      }
+      if(datos['estatus'] == '1'){
+        alert("Ya existe un empleado con este ID");
+      }
+    });
+  }
+
+  guardarEdicion(){
+    console.log(this.formEditEmpleados.value);
+    this.empleadosService.updateEmpleado(this.formEditEmpleados.value).subscribe((datos:any) =>{
+      if (datos['resultado'] == 'OK') {
+        console.log(datos['resultado']);
+        this.getEmpleados();
+        this.formEditEmpleados.reset();
         return;
       }
       if(datos['estatus'] == '1'){
