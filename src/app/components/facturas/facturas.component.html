@@ -9,25 +9,31 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body text-center">
-                        <form action="" class="border p-3 mb-3">
+                        <form [formGroup]="formFacturas" (ngSubmit)="guardarFactura()" class="border p-3 mb-3">
+                            <div class="row d-flex justify-content-around mb-3">
+                                <div class="col-md-6">
+                                    <label for="id-factura" class="form-label">ID: </label>
+                                    <input type="text" name="idfactura" class="form-control" id="id-factura" formControlName="id">
+                                </div>
+                            </div>
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="col-md">
                                     <label for="nota-factura" class="form-label">Nota: </label>
-                                    <input type="text" name="notaFactura" class="form-control" id="nota-factura">
+                                    <input type="text" name="notaFactura" class="form-control" id="nota-factura" formControlName="nota">
                                 </div>
                                 <div class="col-md">
                                     <label for="rfc" class="form-label">RFC: </label>
-                                    <input type="text" name="rfc" class="form-control" id="rfc">
+                                    <input type="text" name="rfc" class="form-control" id="rfc" formControlName="rfc">
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-around mb-3">
                                 <div class="col-md-6">
                                     <label for="fecha-compra" class="form-label">Fecha de Compra: </label>
-                                    <input type="date" name="fechaCompra" class="form-control" id="fecha-compra">
+                                    <input type="date" name="fechaCompra" class="form-control" id="fecha-compra" formControlName="fecha">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="iva" class="form-label">IVA (%): </label>
-                                    <input type="number" min="0" step="0.01" name="iva" class="form-control" id="iva">
+                                    <input type="number" min="0" step="0.01" name="iva" class="form-control" id="iva" formControlName="iva">
                                 </div>
                             </div>
                             <button class="btn btn-success" type="submit">Crear Factura</button>
@@ -49,12 +55,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                <tr *ngFor="let factura of facturas">
+                    <th scope="row">{{factura.id_factura}}</th>
+                    <td>{{factura.nota}}</td>
+                    <td>{{factura.rfc}}</td>
+                    <td>{{factura.fecha_fac}}</td>
+                    <td>{{factura.iva}}</td>
                 </tr>
             </tbody>
         </table>

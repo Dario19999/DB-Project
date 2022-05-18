@@ -12,6 +12,7 @@ import { ComprasComponent } from './components/compras/compras.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmpleadosService } from './services/empleados.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FacturasComponent } from './components/facturas/facturas.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     ProveedoresComponent,
     NavbarComponent,
     EmpleadosComponent,
-    ComprasComponent
+    ComprasComponent,
+    FacturasComponent
   ],
   imports: [
     BrowserModule,
