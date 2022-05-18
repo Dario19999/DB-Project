@@ -11,8 +11,10 @@ import { ProductosService } from '../../services/productos.service';
 export class InventarioComponent implements OnInit {
 
   formProductos: FormGroup;
+  formEditProductos: FormGroup;
 
   productos:any = null;
+  producto:any = null;
   proveedores:any = null;
 
   constructor(private fb: FormBuilder,
@@ -35,7 +37,16 @@ export class InventarioComponent implements OnInit {
       precioVenta:[''],
       stock:[''],
       proveedor:['']
-    })
+    });
+    this.formEditProductos = this.fb.group({
+      id:[''],
+      nombre:[''],
+      desc:[''],
+      precio:[''],
+      precioVenta:[''],
+      stock:[''],
+      proveedor:['']
+    });
   }
 
   getProductos(){
@@ -70,6 +81,41 @@ export class InventarioComponent implements OnInit {
     });
   }
 
+  getProducto(id:any){
+    this.productosService.getProducto(id).subscribe(resultado => {
+      this.producto = resultado
+      console.log(this.producto);
+      this.formEditProductos.setValue({
+        id:this.producto[0].id_producto,
+        nombre:this.producto[0].nombre,
+        desc:this.producto[0].descripcion,
+        precio:this.producto[0].precio,
+        precioVenta:this.producto[0].precio_venta,
+        stock:this.producto[0].id_producto,
+        proveedor:this.producto[0].id_proveedor
+      });
+    });
+  }
+
+  guardarEdicion(){
+    console.log(this.formEditProductos.value);
+    this.productosService.updateProducto(this.formEditProductos.value).subscribe((datos:any) =>{
+      if (datos['resultado'] == 'OK') {
+        console.log(datos['resultado']);
+        this.getProductos();
+        this.formEditProductos.reset();
+        return;
+      }
+      if(datos['estatus'] == '1'){
+        alert("Ya existe un empleado con este ID");
+      }
+    });
+  }
+
+  editarProducto(id:number){
+    this.getProducto(id);
+  }
+
   eliminarProducto(id:number){
     console.log(id);
     if (confirm("¿Desea eliminar este registro?")){
@@ -87,10 +133,6 @@ export class InventarioComponent implements OnInit {
         }
       });
     }
-  }
-
-  editarProducto(id:number){
-
   }
 
 }

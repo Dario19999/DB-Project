@@ -10,8 +10,10 @@ import { ProveedoresService } from '../../services/proveedores.service';
 export class ProveedoresComponent implements OnInit {
 
   formProveedores:FormGroup
+  formEditProveedores:FormGroup
 
   proveedores:any = null;
+  proveedor:any = null;
 
   constructor(private fb:FormBuilder,
               private proveedoresService: ProveedoresService) { }
@@ -23,6 +25,13 @@ export class ProveedoresComponent implements OnInit {
 
   formInit(){
     this.formProveedores = this.fb.group({
+      id:[''],
+      contacto:[''],
+      direccion:[''],
+      denominacion:[''],
+      telefono:['']
+    });
+    this.formEditProveedores = this.fb.group({
       id:[''],
       contacto:[''],
       direccion:[''],
@@ -70,8 +79,37 @@ export class ProveedoresComponent implements OnInit {
     }
   }
 
-  editarProveedor(id:number){
-
+  getProveedor(id:any){
+    console.log(id);
+    this.proveedoresService.getProveedor(id).subscribe(resultado => {
+      this.proveedor = resultado
+      console.log(this.proveedor);
+      this.formEditProveedores.setValue({
+        id:this.proveedor[0].id_proveedor,
+        contacto:this.proveedor[0].contacto,
+        denominacion:this.proveedor[0].denominacion,
+        direccion:this.proveedor[0].direccion,
+        telefono:this.proveedor[0].telefono,
+      });
+    });
   }
 
+  editarProveedor(id_proveedor:number){
+    this.getProveedor(id_proveedor);
+  }
+
+  guardarEdicion(){
+    console.log(this.formEditProveedores.value);
+    this.proveedoresService.updateProveedor(this.formEditProveedores.value).subscribe((datos:any) =>{
+      if (datos['resultado'] == 'OK') {
+        console.log(datos['resultado']);
+        this.getProveedores();
+        this.formEditProveedores.reset();
+        return;
+      }
+      if(datos['estatus'] == '1'){
+        alert("Ya existe un empleado con este ID");
+      }
+    });
+  }
 }

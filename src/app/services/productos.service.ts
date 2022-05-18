@@ -20,8 +20,17 @@ export class ProductosService {
     return this.http.get(`${this.url}getProductos.php`)
   }
 
+  getProducto(id:number){
+    return this.http.get(`${this.url}getProducto.php?id=${id}`)
+  }
+
   deleteProducto(id:number){
     return this.http.get(`${this.url}deleteProducto.php?id=${id}`);
+  }
+
+  updateProducto(producto:any){
+    const PRODUCTO_FD = serialize(producto);
+    return this.http.post(`${this.url}updateProducto.php`, PRODUCTO_FD)
   }
 
 }

@@ -47,13 +47,13 @@ export class ComprasComponent implements OnInit {
       fecha:['']
     });
     this.formEditCompras = this.fb.group({
-      new_id:[''],
-      new_producto:[''],
-      new_cantidad:[''],
-      new_total:[''],
-      new_comprador:[''],
-      new_proveedor:[''],
-      new_fecha:['']
+      id:[''],
+      producto:[''],
+      cantidad:[''],
+      total:[''],
+      comprador:[''],
+      proveedor:[''],
+      fecha:['']
     })
   }
 
@@ -69,13 +69,13 @@ export class ComprasComponent implements OnInit {
       this.compra = resultado
       console.log(this.compra);
       this.formEditCompras.setValue({
-        new_id:this.compra[0].id_compra,
-        new_producto:this.compra[0].producto,
-        new_cantidad:this.compra[0].cantidad,
-        new_total:this.compra[0].total_compra,
-        new_proveedor:this.compra[0].proveedor,
-        new_comprador:this.compra[0].comprador,
-        new_fecha:this.compra[0].fecha_compra
+        id:this.compra[0].id_compra,
+        producto:this.compra[0].producto,
+        cantidad:this.compra[0].cantidad,
+        total:this.compra[0].total_compra,
+        proveedor:this.compra[0].proveedor,
+        comprador:this.compra[0].comprador,
+        fecha:this.compra[0].fecha_compra
       });
     });
   }
@@ -115,6 +115,21 @@ export class ComprasComponent implements OnInit {
 
   editarCompra(id_compra:number){
     this.getCompra(id_compra);
+  }
+
+  guardarEdicion(){
+    console.log(this.formEditCompras.value);
+    this.comprasService.updateCompra(this.formEditCompras.value).subscribe((datos:any) =>{
+      if (datos['resultado'] == 'OK') {
+        console.log(datos['resultado']);
+        this.getCompras();
+        this.formEditCompras.reset();
+        return;
+      }
+      if(datos['estatus'] == '1'){
+        alert("Ya existe un empleado con este ID");
+      }
+    });
   }
 
   eliminarCompra(id:number){

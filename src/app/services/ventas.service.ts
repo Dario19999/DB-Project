@@ -20,9 +20,14 @@ export class VentasService {
     return this.http.get(`${this.url}getVentas.php`)
   }
 
-  // getVenta(id:number){
-  //   return this.http.get(`${this.url}getProveedor.php?id_proveedor=${id}`)
-  // }
+  getVenta(id:number){
+    return this.http.get(`${this.url}getVenta.php?id=${id}`)
+  }
+
+  updateVenta(venta:any){
+    const VENTA_FD = serialize(venta);
+    return this.http.post(`${this.url}updateVenta.php`, VENTA_FD)
+  }
 
   deleteVenta(id:number){
     return this.http.get(`${this.url}deleteVenta.php?id=${id}`);

@@ -28,4 +28,9 @@ export class ComprasService {
     return this.http.get(`${this.url}deleteCompra.php?id=${id}`);
   }
 
+  updateCompra(compra:any){
+    const COMPRA_FD = serialize(compra);
+    return this.http.post(`${this.url}updateCompra.php`, COMPRA_FD)
+  }
+
 }

@@ -11,8 +11,11 @@ import { EmpleadosService } from '../../services/empleados.service';
 export class VentasComponent implements OnInit {
 
   formVentas: FormGroup;
+  formEditVentas: FormGroup;
 
   ventas:any = null;
+  venta:any = null;
+
   empleados:any = null;
 
   constructor(private fb:FormBuilder,
@@ -27,6 +30,13 @@ export class VentasComponent implements OnInit {
 
   formInit(){
     this.formVentas = this.fb.group({
+      id:[''],
+      vendedor:[''],
+      total:[''],
+      fecha:[''],
+      metodoPago:['']
+    });
+    this.formEditVentas = this.fb.group({
       id:[''],
       vendedor:[''],
       total:[''],
@@ -76,7 +86,37 @@ export class VentasComponent implements OnInit {
     }
   }
 
-  editarVenta(id:number){
-
+  getVenta(id:any){
+    this.ventasService.getVenta(id).subscribe(resultado => {
+      this.venta = resultado
+      console.log(this.venta);
+      this.formEditVentas.setValue({
+        id:this.venta[0].id_venta,
+        vendedor:this.venta[0].vendedor,
+        total:this.venta[0].total_venta,
+        fecha:this.venta[0].fecha_venta,
+        metodoPago:this.venta[0].metodo_pago
+      });
+    });
   }
+
+  guardarEdicion(){
+    console.log(this.formEditVentas.value);
+    this.ventasService.updateVenta(this.formEditVentas.value).subscribe((datos:any) =>{
+      if (datos['resultado'] == 'OK') {
+        console.log(datos['resultado']);
+        this.getVentas();
+        this.formEditVentas.reset();
+        return;
+      }
+      if(datos['estatus'] == '1'){
+        alert("Ya existe un empleado con este ID");
+      }
+    });
+  }
+
+  editarVenta(id:number){
+    this.getVenta(id);
+  }
+
 }

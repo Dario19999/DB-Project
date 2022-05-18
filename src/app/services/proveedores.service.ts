@@ -27,4 +27,9 @@ export class ProveedoresService {
   deleteProveedor(id:number){
     return this.http.get(`${this.url}deleteProveedor.php?id=${id}`);
   }
+
+  updateProveedor(proveedor:any){
+    const PROVEEDOR_FD = serialize(proveedor);
+    return this.http.post(`${this.url}updateProveedor.php`, PROVEEDOR_FD)
+  }
 }
