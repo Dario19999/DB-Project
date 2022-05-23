@@ -52,6 +52,7 @@
                     <th scope="col">RFC</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">IVA</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -61,8 +62,53 @@
                     <td>{{factura.rfc}}</td>
                     <td>{{factura.fecha_fac}}</td>
                     <td>{{factura.iva}}</td>
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#editModal" class="p-0 m-0 nav-link" style="cursor: pointer;" (click)="editarFactura( factura.id_factura )">Editar</a>
+                        <!-- <a class=" p-0 m-0 nav-link" style="cursor: pointer;" (click)="eliminarfactura( factura.id_factura )">Eliminar</a> -->
+                    </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editleModalLabel">Editar Compra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <form [formGroup]="formEditFacturas" (ngSubmit)="guardarEdicion()" class="p-3 mb-3">
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="id-factura" class="form-label">ID: </label>
+                            <input type="text" name="idfactura" class="form-control" id="id-factura" formControlName="id" readonly>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md">
+                            <label for="nota-factura" class="form-label">Nota: </label>
+                            <input type="text" name="notaFactura" class="form-control" id="nota-factura" formControlName="nota">
+                        </div>
+                        <div class="col-md">
+                            <label for="rfc" class="form-label">RFC: </label>
+                            <input type="text" name="rfc" class="form-control" id="rfc" formControlName="rfc">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around mb-3">
+                        <div class="col-md-6">
+                            <label for="fecha-compra" class="form-label">Fecha de Compra: </label>
+                            <input type="date" name="fechaCompra" class="form-control" id="fecha-compra" formControlName="fecha">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="iva" class="form-label">IVA (%): </label>
+                            <input type="number" min="0" step="0.01" name="iva" class="form-control" id="iva" formControlName="iva">
+                        </div>
+                    </div>
+                    <button class="btn btn-success" type="submit" data-bs-dismiss="modal">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
